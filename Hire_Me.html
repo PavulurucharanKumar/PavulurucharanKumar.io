@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charan_Kumar_Portfolio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="./first.css" rel="stylesheet">
+    
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-transparent bg-dark">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" href="./index.html">Home</a>
+                <a class="nav-link" href="./Hire_Me.html">Hire Me<span class="sr-only">(current)</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <ul>
+        <li><h4>Contact Me For Project Implementations.</h4></li>
+        <p>Mobile No.: <a href="tel:+917386922813">7386922813</a></p>
+        <p>Mail-Id: <a href="mailto:charan.ece.saveetha@gmail.com">charan.ece.saveetha@gmail.com</a></p>
+    </ul>
+
+    <div class="contact-form card text-center">
+        <form name="submit-to-google-sheet">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="Name" placeholder="Enter Your Full Name..." required>
+
+            <div>
+                <label for="email">Email ID:</label>
+                <input type="email" id="email" name="Email" placeholder="Enter Your email ID..." required>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+        <div id="success-message">
+            Successfully submitted!
+        </div>
+        <div id="error-message">
+            Submission failed. Please try again.
+        </div>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzmY018aNHlvIYxxS6ZTJo6K63T1O2TaqaqAwTRO8bzbHD1R_z37QNdkgyi-k-3Oln3/exec';
+        const form = document.forms['submit-to-google-sheet'];
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    successMessage.style.display = 'block';
+                    errorMessage.style.display = 'none';
+                    form.reset();
+                    console.log('Success!', response);
+                })
+                .catch(error => {
+                    successMessage.style.display = 'none';
+                    errorMessage.style.display = 'block';
+                    console.error('Error!', error.message);
+                });
+        });
+    </script>
+</body>
+</html>
